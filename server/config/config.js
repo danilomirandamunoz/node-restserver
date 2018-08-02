@@ -9,7 +9,7 @@ let urlDB;
 if (process.env.NODE_ENV == 'dev') {
     urlDB = 'mongodb://localhost:27017/cafe';
 } else {
-    urlDB = 'mongodb://cafeuser:a123456@ds123084.mlab.com:23084/dmirandam-node-cafe';
+    urlDB = process.env.MONGO_URI;
 }
 
 process.env.urlDB = urlDB;
