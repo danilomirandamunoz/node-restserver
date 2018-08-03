@@ -87,6 +87,8 @@ app.post("/google", async(req, res) => {
     let token = req.body.idtoken;
     console.log('llegue');
 
+    console.log(token);
+
     let googleUser = await verify(token)
         .catch(err => {
             return res.status(403).json({
@@ -103,6 +105,8 @@ app.post("/google", async(req, res) => {
                 err
             });
         }
+
+
 
         if (usuarioDB) {
             if (usuarioDB.google === false) {
@@ -135,10 +139,12 @@ app.post("/google", async(req, res) => {
 
             usuario.save((err, usuarioDB) => {
                 if (err) {
-                    return res.status(500).json({
+                    res.status(500).json({
                         ok: false,
                         err
                     });
+
+                    return;
                 }
 
                 let token = jwt.sign({
