@@ -6,7 +6,16 @@ const _ = require("underscore");
 
 const Usuario = require("../models/usuario");
 
-app.get("/usuario", function(req, res) {
+const { verificaToken, verificaAdminRole } = require("../middlewares/autenticacion")
+
+
+app.get("/usuario", verificaToken, function(req, res) {
+
+    //en req.usuario se encuentra el usuario validado por el token
+    // return res.json({
+    //     usuario: req.usuario,
+    //     nombre: req.usuario.nombre
+    // });
 
     let desde = req.query.desde || 0;
     desde = Number(desde);
@@ -40,7 +49,7 @@ app.get("/usuario", function(req, res) {
 
 });
 
-app.post("/usuario", function(req, res) {
+app.post("/usuario", [verificaToken, verificaAdminRole], function(req, res) {
 
     //obytiene los datos enviado para actualizar por post
     let body = req.body;
@@ -74,7 +83,7 @@ app.post("/usuario", function(req, res) {
 
 });
 
-app.put("/usuario/:id", function(req, res) {
+app.put("/usuario/:id", [verificaToken, verificaAdminRole], function(req, res) {
 
     let id = req.params.id;
 
@@ -105,7 +114,7 @@ app.put("/usuario/:id", function(req, res) {
 
 });
 
-app.delete("/usuario/:id", function(req, res) {
+app.delete("/usuario/:id", [verificaToken, verificaAdminRole], function(req, res) {
 
     let id = req.params.id;
 
