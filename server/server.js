@@ -7,6 +7,9 @@ const app = express();
 //este sirve para conectarse a la BD => npm install mongoose --save
 const mongoose = require("mongoose");
 
+// 
+const path = require("path");
+
 
 //body parser sirve para serializar objetos enviados por post => npm install body-parser --save
 const bodyParser = require("body-parser");
@@ -15,6 +18,9 @@ app.use(bodyParser.json());
 
 //condiguracion global de rutas en archivo
 app.use(require("./routes/index"));
+
+//habilitar la carpeta public
+app.use(express.static(path.resolve(__dirname, "../public")));
 
 
 //esto es para conectarse a la BD
