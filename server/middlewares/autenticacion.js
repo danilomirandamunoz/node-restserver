@@ -20,7 +20,7 @@ let verificaToken = (req, res, next) => {
                 }
             });
         }
-
+        console.log("fdsfdsfds");
         req.usuario = decoded.usuario;
         //permite continuar con la ejecucion del metodo invocado
         next();
